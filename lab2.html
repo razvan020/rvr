@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VR Lab 2 - Glitch Version</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+
+      <!-- Assets -->
+      <a-assets>
+        <img id="floorTexture" src="https://cdn.glitch.global/f3ee87ae-d230-4c97-8d13-e189c97b2b1d/wood2.jpg?v=1681140000000">
+        <a-asset-item id="animatedModel" src="https://cdn.glitch.global/f3ee87ae-d230-4c97-8d13-e189c97b2b1d/RiggedFigure.gltf?v=1681140000000"></a-asset-item>
+      </a-assets>
+
+      <!-- Camera -->
+      <a-entity camera position="0 1.6 0" look-controls wasd-controls></a-entity>
+
+      <!-- Lighting -->
+      <a-light type="point" color="#ff9999" intensity="1" position="-2 3 2"></a-light>
+      <a-light type="point" color="#99ccff" intensity="1" position="2 3 -2"></a-light>
+
+      <!-- Floor -->
+      <a-plane src="#floorTexture" rotation="-90 0 0" width="10" height="10" repeat="4 4"></a-plane>
+
+      <!-- Room (cube) -->
+      <a-box position="0 1.5 0" depth="10" height="3" width="10" color="#ccc"
+             material="side: double; opacity: 0.2;"></a-box>
+
+      <!-- Placeholder furniture -->
+      <a-box position="-2 0.5 -2" depth="1.5" height="1" width="1" color="brown" text="value: Table; color: white; align: center;"></a-box>
+      <a-box position="-1 0.3 -2.5" depth="1" height="0.6" width="0.6" color="gray" text="value: Chair; color: white; align: center;"></a-box>
+      <a-box position="-2 1.2 -2" depth="0.3" height="0.3" width="0.4" color="black" text="value: PC; color: white; align: center;"></a-box>
+
+      <!-- Animated model -->
+      <a-entity gltf-model="#animatedModel" position="2 0 -2" scale="1 1 1" animation-mixer></a-entity>
+
+      <!-- Sky background -->
+      <a-sky color="#CCE"></a-sky>
+
+    </a-scene>
+  </body>
+</html>
