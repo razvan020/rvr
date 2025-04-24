@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VR Lab 2 - Animated Model Test</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Assets -->
+      <a-assets>
+        <img id="floorTexture" src="https://cdn.glitch.global/7976f79b-023d-46b6-b1ae-5e44f50fbe02/floor.jpg?v=1744372839475">
+        <!-- WORKING animated model -->
+        <a-asset-item id="animatedModel" src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/CesiumMan/glTF/CesiumMan.gltf"></a-asset-item>
+      </a-assets>
+
+      <!-- Camera -->
+      <a-entity camera position="0 1.6 0" look-controls wasd-controls></a-entity>
+
+      <!-- Lights -->
+      <a-light type="point" color="#ff9999" intensity="1" position="-2 3 2"></a-light>
+      <a-light type="point" color="#99ccff" intensity="1" position="2 3 -2"></a-light>
+
+      <!-- Floor -->
+      <a-plane src="#floorTexture" rotation="-90 0 0" width="10" height="10" repeat="4 4"></a-plane>
+
+      <!-- Room -->
+      <a-box position="0 1.5 0" depth="10" height="3" width="10" color="#ccc"
+             material="side: double; opacity: 0.2;"></a-box>
+
+      <!-- Furniture -->
+      <a-box position="-2 0.5 -2" depth="1.5" height="1" width="1" color="brown" text="value: Table; color: white; align: center;"></a-box>
+      <a-box position="-1 0.3 -2.5" depth="1" height="0.6" width="0.6" color="gray" text="value: Chair; color: white; align: center;"></a-box>
+      <a-box position="-2 1.2 -2" depth="0.3" height="0.3" width="0.4" color="black" text="value: PC; color: white; align: center;"></a-box>
+
+      <!-- Animated Model -->
+      <a-entity gltf-model="#animatedModel" position="2 0 -2" scale="1 1 1" animation-mixer="clip: *"></a-entity>
+
+      <!-- Sky -->
+      <a-sky color="#CCE"></a-sky>
+    </a-scene>
+  </body>
+</html>
