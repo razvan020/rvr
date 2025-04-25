@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <!--<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>-->
+        <script src="aframe.min.js"></script>
+
+        <!--registers a new component (a-frame item attribute) that can be attached to items - a sort of interface that is attached to arbitrary objects-->
+        <script>
+            var t = 0;
+            var triggered = false;
+            AFRAME.registerComponent('scale-on-mouseenter', {
+                schema: {
+                    to: {default: '2.5 2.5 2.5'}
+                },
+
+                init: function () {
+                    var data = this.data;
+                    this.el.addEventListener('mouseenter', function () {
+                        this.setAttribute('scale', data.to);
+                    });
+
+                },
+
+                tick: function () {
+                    t += 0.01;
+                    this.el.setAttribute('position', '-3 '+(Math.sin(t*2)+1)+' -4');
+                    //console.log("tick " + t)
+                    if (t > 5 && triggered == false) {
+                        this.el.emit("end-timer")
+                        console.log("end timer")
+                        triggered = true;
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <a-scene>
+
+            <!--speed optimization versus simply referring to the image using src="" in the a-box -->
+            <a-assets>
+                <img id="boxTexture" src="cer.jpg">
+            </a-assets>
+
+            <a-box position="-1 0.5 -3" rotation="0 0 0" color="#4CC3D9">
+                <!--<a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000" repeat="indefinite"></a-animation>-->
+                <!-- These animations will start when the box is looked at. -->
+                <a-animation attribute="scale" begin="mouseenter" dur="300" to="2.3 2.3 2.3"></a-animation>
+                <a-animation attribute="scale" begin="mouseleave" dur="300" to="1 1 1"></a-animation>
+                <a-animation attribute="rotation" begin="click" dur="2000" to="0 45 0" easing="ease"></a-animation>
+            </a-box>
+
+            <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+            <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+
+            <!--the base element that is behind primitives-->
+            <a-entity id="box" geometry="primitive: box" material="color: orange" position="1 1 1"></a-entity>
+
+                <a-sphere position="1 0 3"></a-sphere>
+            </a-box>
+
+            <!--<a-box position="-3 0 -4" rotation="0 0 0" scale="2 2 2"src="cer.jpg" >-->
+            <a-box position="-3 0 -4" rotation="0 0 0" scale="2 2 2"src="#boxTexture" scale-on-mouseenter="to: 3 3 3">
+                <a-animation attribute="scale" begin="end-timer" dur="300" to="1 1 1"></a-animation>
+            </a-box>
+
+            <a-sky src="#boxTexture"></a-sky>
+
+
+            <!--<a-light type="ambient" color="#445451"></a-light>-->
+            <!--<a-light type="point" intensity="2" position="2 4 4"></a-light>-->
+
+            <!--adds a camera, other instead of the default-->
+            <a-camera>
+                <!--adds a cursor that can generate on-hover and on-click events-->
+                <a-cursor></a-cursor>
+            </a-camera>
+
+
+
+        </a-scene>
+    </body>
+</html>
